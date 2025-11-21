@@ -1,0 +1,1379 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+ul {
+  list-style: none;
+}
+
+@font-face {
+  font-family: "YoonChoWooSan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KkuBulLim";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BMkkubulimTTF-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "YoonChoWooSan";
+  overflow: hidden;
+  background-color: #bfb9b2;
+}
+
+@media (min-width: 1220px) {
+  /* 코르크 보드 */
+  .corkBoard {
+    width: 100%;
+    height: 100vh;
+    background: url("img/Corkboard.png") no-repeat center / cover;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: "KkuBulLim";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    transform: translateY(-100%);
+  }
+  .corkBoard button {
+    font-family: "KkuBulLim";
+  }
+  .weekBoard h3 {
+    font-size: 6.5vw;
+    font-weight: bold;
+  }
+  .weekBoard h3 .todo {
+    font-size: 25px;
+    cursor: pointer;
+    text-shadow: -0.09em 0.1em #ffffff;
+  }
+  .todo span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+  @keyframes move2 {
+    100% {
+      transform: translateX(3px);
+    }
+  }
+  /* 코르크_일주일 날짜 */
+  .weekBoard li {
+    width: clamp(170px, 17vw, 230px);
+    aspect-ratio: 1/1;
+    background-color: white;
+    position: absolute;
+    font-size: 25px;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    background: url(img/memo.jpg) no-repeat center / cover;
+    transition: 0.4s;
+  }
+  .weekBoard li:hover::before {
+    width: 25px;
+    aspect-ratio: 1/1;
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(
+        135deg,
+        rgba(52, 38, 22, 0) 50%,
+        rgb(142, 144, 143) 50%
+      ),
+      url(img/Corkboard.png) no-repeat center / cover;
+  }
+  .weekBoard li::after {
+    width: 90%;
+    height: 90%;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    box-shadow: 2px 2px 10px 3px #000;
+    transform: skew(2deg, 1.5deg);
+    transition: 0.4s;
+  }
+  .weekBoard li.selected::after {
+    box-shadow: 2px 2px 6px 6px #000;
+  }
+  .weekBoard li p.today {
+    color: #fa3236;
+    font-weight: bold;
+  }
+  @keyframes move {
+    0% {
+      transform: scale(1);
+    }
+    90%,
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  .weekBoard li p.today::after {
+    width: 100%;
+    content: "Today!";
+    font-size: 16px;
+    color: black;
+    display: block;
+    margin-top: 3px;
+  }
+  .weekBoard li:nth-child(1) {
+    top: 20%;
+    left: 5%;
+  }
+  .weekBoard li:nth-child(2) {
+    top: 30%;
+    left: 30%;
+  }
+  .weekBoard li:nth-child(3) {
+    top: 15%;
+    right: 35%;
+  }
+  .weekBoard li:nth-child(4) {
+    top: 35%;
+    right: 15%;
+  }
+  .weekBoard li:nth-child(5) {
+    bottom: 10%;
+    left: 10%;
+  }
+  .weekBoard li:nth-child(6) {
+    bottom: 20%;
+    left: 45%;
+  }
+  .weekBoard li:nth-child(7) {
+    bottom: 5%;
+    right: 10%;
+  }
+
+  /* 코르크_확인창 */
+  .corkBoard .loadPop {
+    width: 350px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 3px dashed #333;
+    text-align: center;
+    align-content: center;
+    display: none;
+  }
+  .corkBoard .loadPop p {
+    font-size: 22px;
+  }
+  .corkBoard .loadPop button {
+    font-size: 17px;
+  }
+
+  /* todoBoard */
+  .todoBoard {
+    width: 80%;
+    height: 100vh;
+    background: url(img/backpaper.png) no-repeat center / cover;
+    padding: 80px 0px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    position: relative;
+  }
+  .todoBoard button {
+    font-family: "YoonChoWooSan";
+  }
+
+  /* todo_상단 */
+  #title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+  }
+  #title > * {
+    width: calc(100% / 3);
+  }
+  #title .left > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #title .left > div p.on {
+    text-decoration: line-through;
+  }
+  #title .left > div span {
+    position: relative;
+  }
+  #title .left > div span:hover::before {
+    width: 160px;
+    content: "오늘의 투두로 돌아갑니다";
+    background-color: white;
+    position: absolute;
+    left: -300%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title h2 {
+    text-align: center;
+    font-size: 50px;
+  }
+  /* todo_상단_우측 아이콘들 */
+  #title .icons {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+  }
+  #title .icons span {
+    position: relative;
+  }
+  #title .icons span:nth-child(1):hover::before {
+    width: 210px;
+    content: "모든 할 일에 체크를 해제합니다";
+    background-color: white;
+    position: absolute;
+    left: -350%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(2):hover::before {
+    width: 160px;
+    content: "모든 할 일을 체크합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(3):hover::before {
+    width: 180px;
+    content: "투두리스트를 초기화합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(4):hover::before {
+    width: 200px;
+    content: "오늘의 투두리스트를 저장합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+
+  /* todo_입력창 */
+  .inputWindow {
+    text-align: center;
+  }
+  .inputWindow p {
+    margin: 10px 0px;
+  }
+  .inputWindow > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .inputWindow > div input {
+    width: 200px;
+    height: 30px;
+    border: 2px solid #9a978d;
+    border-radius: 5px;
+  }
+  .inputWindow #add {
+    width: 32px;
+  }
+
+  /*todo_taskBoard*/
+  #taskBoard {
+    width: 70%;
+    height: 75%;
+    margin: 0px auto;
+    overflow-y: scroll;
+  }
+  #taskBoard::-webkit-scrollbar {
+    width: 11px;
+  }
+  #taskBoard::-webkit-scrollbar-thumb {
+    background: white;
+    border: 2px solid #9a978d;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .task {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid black;
+    margin: 15px auto;
+    border-radius: 20px;
+    color: black;
+    transition: 0.2s;
+  }
+  .task:hover {
+    transform: scale(1.03);
+  }
+  .task > div {
+    width: 80%;
+    text-align: left;
+  }
+  .task button {
+    margin: 0;
+  }
+  .task button:hover {
+    background-color: #6a7f4e;
+    color: white;
+    box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.2);
+    border-color: #6a7f4e;
+  }
+  /*취소선*/
+  .task-done {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  /* todo_task_체크박스*/
+  .task input,
+  .task label {
+    width: 20px;
+    height: 20px;
+  }
+  .task input {
+    position: absolute;
+    display: none;
+  }
+  .task label {
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+    align-content: center;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  /* todo_week 버튼 */
+  .week {
+    position: absolute;
+    bottom: 70px;
+    right: -20px;
+    background-color: rgb(246, 246, 246);
+    border: 5px double red;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: rotate(-15deg);
+    font-size: 18px;
+  }
+  .week:hover {
+    animation: weekTurn 0.5s infinite alternate;
+  }
+  @keyframes weekTurn {
+    100% {
+      transform: rotate(5deg) scale(1.05);
+    }
+  }
+  .week span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+
+  /* todo_모달 박스 */
+  #modalBox {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    display: none;
+  }
+  #modalBox button {
+    font-family: "YoonChoWooSan";
+  }
+  #modalBox > div {
+    width: 350px;
+    height: 250px;
+    align-content: center;
+    background-color: white;
+    text-align: center;
+  }
+  #modalBox > div {
+    font-size: 20px;
+  }
+
+  /* 버튼 스타일 */
+  button {
+    background: white;
+    border: 2px solid #6a7f4e;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+  }
+  button:active::after {
+    width: 3px;
+    height: 5px;
+    content: "";
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+    transform: rotate(45deg);
+    background-color: transparent;
+    border-radius: 0;
+    position: absolute;
+    left: 4px;
+    top: 2px;
+  }
+
+  /* 스티커 아이콘 전체 적용 */
+  .sticker {
+    width: 30px;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+  }
+  .sticker:hover {
+    transform: scale(1.15);
+  }
+}
+@media (min-width: 720px) and (max-width: 1220px) {
+  /* 코르크 보드 */
+  .corkBoard {
+    width: 100%;
+    height: 100vh;
+    background: url("img/Corkboard.png") no-repeat center / cover;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: "KkuBulLim";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    transform: translateY(-100%);
+  }
+  .corkBoard button {
+    font-family: "KkuBulLim";
+  }
+  .weekBoard h3 {
+    font-size: clamp(70px, 6.5vw, 6.5vw);
+    font-weight: bold;
+  }
+  .weekBoard h3 .todo {
+    font-size: clamp(20px, 2vw, 25px);
+    cursor: pointer;
+    text-shadow: -0.09em 0.1em #ffffff;
+  }
+  .todo span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+  @keyframes move2 {
+    100% {
+      transform: translateX(3px);
+    }
+  }
+  /* 코르크_일주일 날짜 */
+  .weekBoard li {
+    width: clamp(170px, 17vw, 200px);
+    aspect-ratio: 1/1;
+    background-color: white;
+    position: absolute;
+    font-size: 23px;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    background: url(img/memo.jpg) no-repeat center / cover;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .weekBoard li:hover::before {
+    width: 25px;
+    aspect-ratio: 1/1;
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(
+        135deg,
+        rgba(52, 38, 22, 0) 50%,
+        rgb(142, 144, 143) 50%
+      ),
+      url(img/Corkboard.png) no-repeat center / cover;
+  }
+  .weekBoard li::after {
+    width: 90%;
+    height: 90%;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    box-shadow: 2px 2px 10px 3px #000;
+    transform: skew(2deg, 1.5deg);
+    transition: 0.4s;
+  }
+  .weekBoard li.selected::after {
+    box-shadow: 2px 2px 6px 6px #000;
+  }
+  .weekBoard li p.today {
+    color: #fa3236;
+    font-weight: bold;
+  }
+  @keyframes move {
+    0% {
+      transform: scale(1);
+    }
+    90%,
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  .weekBoard li p.today::after {
+    width: 100%;
+    content: "Today!";
+    font-size: 16px;
+    color: black;
+    display: block;
+    margin-top: 3px;
+  }
+  .weekBoard li:nth-child(1) {
+    top: 18%;
+    left: 5%;
+  }
+  .weekBoard li:nth-child(2) {
+    top: 40%;
+    left: 20%;
+  }
+  .weekBoard li:nth-child(3) {
+    top: 20%;
+    right: 35%;
+  }
+  .weekBoard li:nth-child(4) {
+    top: 35%;
+    right: 10%;
+  }
+  .weekBoard li:nth-child(5) {
+    bottom: 10%;
+    left: 10%;
+  }
+  .weekBoard li:nth-child(6) {
+    bottom: 20%;
+    left: 45%;
+  }
+  .weekBoard li:nth-child(7) {
+    bottom: 5%;
+    right: 10%;
+  }
+
+  /* 코르크_확인창 */
+  .corkBoard .loadPop {
+    width: 350px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 3px dashed #333;
+    text-align: center;
+    align-content: center;
+    display: none;
+  }
+  .corkBoard .loadPop p {
+    font-size: 22px;
+  }
+  .corkBoard .loadPop button {
+    font-size: 17px;
+  }
+
+  /* todoBoard */
+  .todoBoard {
+    width: 80%;
+    height: 100vh;
+    background: url(img/backpaper.png) no-repeat center / cover;
+    padding: 80px 0px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    position: relative;
+  }
+  .todoBoard button {
+    font-family: "YoonChoWooSan";
+  }
+
+  /* todo_상단 */
+  #title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+  }
+  #title > * {
+    width: calc(100% / 3);
+  }
+  #title .left > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #title .left > div p.on {
+    text-decoration: line-through;
+  }
+  #title .left > div span {
+    position: relative;
+  }
+  #title .left > div span:hover::before {
+    width: 160px;
+    content: "오늘의 투두로 돌아갑니다";
+    background-color: white;
+    position: absolute;
+    left: -300%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title h2 {
+    text-align: center;
+    font-size: clamp(39px, 5vw, 50px);
+  }
+  /* todo_상단_우측 아이콘들 */
+  #title .icons {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+  }
+  #title .icons span {
+    position: relative;
+  }
+  #title .icons span:nth-child(1):hover::before {
+    width: 210px;
+    content: "모든 할 일에 체크를 해제합니다";
+    background-color: white;
+    position: absolute;
+    left: -350%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(2):hover::before {
+    width: 160px;
+    content: "모든 할 일을 체크합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(3):hover::before {
+    width: 180px;
+    content: "투두리스트를 초기화합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+  #title .icons span:nth-child(4):hover::before {
+    width: 200px;
+    content: "오늘의 투두리스트를 저장합니다";
+    background-color: white;
+    position: absolute;
+    left: -280%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+  }
+
+  /* todo_입력창 */
+  .inputWindow {
+    text-align: center;
+  }
+  .inputWindow p {
+    margin: 10px 0px;
+  }
+  .inputWindow > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .inputWindow > div input {
+    width: 200px;
+    height: 30px;
+    border: 2px solid #9a978d;
+    border-radius: 5px;
+  }
+  .inputWindow #add {
+    width: 35px;
+  }
+
+  /*todo_taskBoard*/
+  #taskBoard {
+    width: 70%;
+    height: 75%;
+    margin: 0px auto;
+    overflow-y: scroll;
+  }
+  #taskBoard::-webkit-scrollbar {
+    width: 11px;
+  }
+  #taskBoard::-webkit-scrollbar-thumb {
+    background: white;
+    border: 2px solid #9a978d;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .task {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid black;
+    margin: 15px auto;
+    border-radius: 20px;
+    color: black;
+    transition: 0.2s;
+  }
+  .task:hover {
+    transform: scale(1.03);
+  }
+  .task > div {
+    width: 80%;
+    text-align: left;
+  }
+  .task button {
+    margin: 0;
+  }
+  .task button:hover {
+    background-color: #6a7f4e;
+    color: white;
+    box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.2);
+    border-color: #6a7f4e;
+  }
+  /*취소선*/
+  .task-done {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  /* todo_task_체크박스*/
+  .task input,
+  .task label {
+    width: 20px;
+    height: 20px;
+  }
+  .task input {
+    position: absolute;
+    display: none;
+  }
+  .task label {
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+    align-content: center;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  /* todo_week 버튼 */
+  .week {
+    position: absolute;
+    bottom: 70px;
+    right: -20px;
+    background-color: rgb(246, 246, 246);
+    border: 5px double red;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: rotate(-15deg);
+    font-size: 18px;
+  }
+  .week:hover {
+    animation: weekTurn 0.5s infinite alternate;
+  }
+  @keyframes weekTurn {
+    100% {
+      transform: rotate(5deg) scale(1.05);
+    }
+  }
+  .week span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+
+  /* todo_모달 박스 */
+  #modalBox {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    display: none;
+  }
+  #modalBox button {
+    font-family: "YoonChoWooSan";
+  }
+  #modalBox > div {
+    width: 350px;
+    height: 250px;
+    align-content: center;
+    background-color: white;
+    text-align: center;
+  }
+  #modalBox > div {
+    font-size: 20px;
+  }
+
+  /* 버튼 스타일 */
+  button {
+    background: white;
+    border: 2px solid #6a7f4e;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+  }
+  button:active::after {
+    width: 3px;
+    height: 5px;
+    content: "";
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+    transform: rotate(45deg);
+    background-color: transparent;
+    border-radius: 0;
+    position: absolute;
+    left: 4px;
+    top: 2px;
+  }
+
+  /* 스티커 아이콘 전체 적용 */
+  .sticker {
+    width: 27px;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+  }
+  .sticker:hover {
+    transform: scale(1.15);
+  }
+}
+@media (max-width: 720px) {
+  /* 코르크 보드 */
+  .corkBoard {
+    width: 100%;
+    height: 100vh;
+    background: url("img/Corkboard.png") no-repeat center / cover;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: "KkuBulLim";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    transform: translateY(-100%);
+    overflow: auto;
+  }
+  .corkBoard::-webkit-scrollbar {
+    display: none;
+  }
+  .corkBoard button {
+    font-family: "KkuBulLim";
+  }
+  .weekBoard h3 {
+    font-size: clamp(60px, 6.5vw, 6.5vw);
+    font-weight: bold;
+  }
+  .weekBoard h3 .todo {
+    font-size: clamp(20px, 2vw, 25px);
+    cursor: pointer;
+    text-shadow: -0.09em 0.1em #ffffff;
+  }
+  .todo span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+  @keyframes move2 {
+    100% {
+      transform: translateX(3px);
+    }
+  }
+  /* 코르크_일주일 날짜 */
+  .weekBoard ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 30px;
+  }
+  .weekBoard li {
+    width: clamp(130px, 12vw, 150px);
+    aspect-ratio: 1/1;
+    background-color: white;
+    position: relative;
+    font-size: 23px;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    background: url(img/memo.jpg) no-repeat center / cover;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .weekBoard li:hover::before {
+    width: 25px;
+    aspect-ratio: 1/1;
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(
+        135deg,
+        rgba(52, 38, 22, 0) 50%,
+        rgb(142, 144, 143) 50%
+      ),
+      url(img/Corkboard.png) no-repeat center / cover;
+  }
+  .weekBoard li::after {
+    width: 90%;
+    height: 90%;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    box-shadow: 2px 2px 10px 3px #000;
+    transform: skew(2deg, 1.5deg);
+    transition: 0.4s;
+  }
+  .weekBoard li.selected::after {
+    box-shadow: 2px 2px 6px 6px #000;
+  }
+  .weekBoard li p.today {
+    color: #fa3236;
+    font-weight: bold;
+  }
+  @keyframes move {
+    0% {
+      transform: scale(1);
+    }
+    90%,
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  .weekBoard li p.today::after {
+    width: 100%;
+    content: "Today!";
+    font-size: 16px;
+    color: black;
+    display: block;
+    margin-top: 3px;
+  }
+
+  /* 코르크_확인창 */
+  .corkBoard .loadPop {
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 3px dashed #333;
+    text-align: center;
+    align-content: center;
+    display: none;
+  }
+  .corkBoard .loadPop p {
+    font-size: 18px;
+  }
+  .corkBoard .loadPop button {
+    font-size: 15px;
+  }
+
+  /* todoBoard */
+  .todoBoard {
+    width: 80%;
+    height: 100vh;
+    background: url(img/backpaper.png) no-repeat center / cover;
+    padding: 80px 0px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    position: relative;
+  }
+  .todoBoard button {
+    font-family: "YoonChoWooSan";
+  }
+
+  /* todo_상단 */
+  #title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+  }
+  #title > * {
+    width: calc(100% / 3);
+  }
+  #title .left {
+    font-size: 14px;
+    margin-right: 7px;
+  }
+  #title .left > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  #title .left > div p.on {
+    text-decoration: line-through;
+  }
+  #title .left > div span {
+    position: absolute;
+    top: -25px;
+  }
+  #title .left > div span:hover::before {
+    width: 140px;
+    content: "오늘의 투두로 돌아갑니다";
+    background-color: white;
+    position: absolute;
+    left: 0%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  #title h2 {
+    text-align: center;
+    font-size: clamp(28px, 5vw, 39px);
+  }
+  /* todo_상단_우측 아이콘들 */
+  #title .icons span {
+    position: relative;
+  }
+  #title .icons span img {
+    margin-left: auto;
+  }
+  #title .icons span:nth-child(1):hover::before {
+    width: 175px;
+    content: "모든 할 일에 체크를 해제합니다";
+    background-color: white;
+    position: absolute;
+    right: 0%;
+    top: -100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  #title .icons span:nth-child(2):hover::before {
+    width: 130px;
+    content: "모든 할 일을 체크합니다";
+    background-color: white;
+    position: absolute;
+    right: 0%;
+    top: -200%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  #title .icons span:nth-child(3):hover::before {
+    width: 155px;
+    content: "투두리스트를 초기화합니다";
+    background-color: white;
+    position: absolute;
+    right: 0%;
+    top: -300%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  #title .icons span:nth-child(4):hover::before {
+    width: 180px;
+    content: "오늘의 투두리스트를 저장합니다";
+    background-color: white;
+    position: absolute;
+    right: 0%;
+    top: -400%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* todo_입력창 */
+  .inputWindow {
+    text-align: center;
+  }
+  .inputWindow p {
+    margin: 10px 0px;
+  }
+  .inputWindow > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .inputWindow > div input {
+    width: 40%;
+    height: 30px;
+    border: 2px solid #9a978d;
+    border-radius: 5px;
+  }
+  .inputWindow #add {
+    width: 35px;
+  }
+
+  /*todo_taskBoard*/
+  #taskBoard {
+    width: 70%;
+    height: 75%;
+    margin: 0px auto;
+    overflow-y: scroll;
+  }
+  #taskBoard::-webkit-scrollbar {
+    width: 11px;
+  }
+  #taskBoard::-webkit-scrollbar-thumb {
+    background: white;
+    border: 2px solid #9a978d;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .task {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid black;
+    margin: 15px auto;
+    border-radius: 15px;
+    color: black;
+    transition: 0.2s;
+  }
+  .task:hover {
+    transform: scale(1.03);
+  }
+  .task > div {
+    width: 80%;
+    text-align: left;
+  }
+  .task button {
+    margin: 0;
+    font-size: 13px;
+  }
+  .task button:hover {
+    background-color: #6a7f4e;
+    color: white;
+    box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.2);
+    border-color: #6a7f4e;
+  }
+  /*취소선*/
+  .task-done {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  /* todo_task_체크박스*/
+  .task input,
+  .task label {
+    width: 20px;
+    height: 20px;
+  }
+  .task input {
+    position: absolute;
+    display: none;
+  }
+  .task label {
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+    align-content: center;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  /* todo_week 버튼 */
+  .week {
+    position: absolute;
+    bottom: 70px;
+    right: -20px;
+    background-color: rgb(246, 246, 246);
+    border: 5px double red;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: rotate(-15deg);
+    font-size: 18px;
+  }
+  .week:hover {
+    animation: weekTurn 0.5s infinite alternate;
+  }
+  @keyframes weekTurn {
+    100% {
+      transform: rotate(5deg) scale(1.05);
+    }
+  }
+  .week span {
+    display: inline-block;
+    animation: move2 0.7s infinite;
+  }
+
+  /* todo_모달 박스 */
+  #modalBox {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    display: none;
+  }
+  #modalBox button {
+    font-family: "YoonChoWooSan";
+    font-size: 13px;
+  }
+  #modalBox > div {
+    width: 250px;
+    height: 150px;
+    align-content: center;
+    background-color: white;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  /* 버튼 스타일 */
+  button {
+    background: white;
+    border: 2px solid #6a7f4e;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+  }
+  button:active::after {
+    width: 3px;
+    height: 5px;
+    content: "";
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+    transform: rotate(45deg);
+    background-color: transparent;
+    border-radius: 0;
+    position: absolute;
+    left: 4px;
+    top: 2px;
+  }
+
+  /* 스티커 아이콘 전체 적용 */
+  .sticker {
+    width: 27px;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+  }
+  .sticker:hover {
+    transform: scale(1.15);
+  }
+}

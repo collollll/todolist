@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="jquery.transform2d.js"></script>
+  </head>
+  <body>
+    <section class="corkBoard">
+      <div class="weekBoard">
+        <h3>
+          WEEK <span class="todo">ToDo <span>>></span></span>
+        </h3>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <!-- <div class="todo">ToDo<span>>></span></div> -->
+      </div>
+      <div class="loadPop">
+        <p>투두리스트를 불러올까요?</p>
+        <button id="loadYes">확인</button>
+        <button id="loadNo">취소</button>
+      </div>
+    </section>
+
+    <section class="todoBoard">
+      <div id="title">
+        <div class="left">
+          <div>
+            <p class="day"></p>
+            <span
+              ><img
+                src="https://img.icons8.com/stickers-duotone/32/u-turn-to-left.png"
+                class="sticker return"
+            /></span>
+          </div>
+        </div>
+        <h2>ToDo List</h2>
+        <div class="icons">
+          <span>
+            <img
+              src="https://img.icons8.com/stickers-duotone/32/multiply.png"
+              class="allDel sticker"
+          /></span>
+          <span>
+            <img
+              src="https://img.icons8.com/stickers-duotone/32/todo-list.png"
+              class="allCheck sticker"
+          /></span>
+          <span
+            ><img
+              src="https://img.icons8.com/stickers-duotone/32/delete.png"
+              class="clear sticker"
+          /></span>
+          <span>
+            <img
+              src="https://img.icons8.com/stickers-duotone/32/bookmark-ribbon.png"
+              class="save sticker"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="inputWindow">
+        <p>What is today's work</p>
+        <div>
+          <input id="user" />
+          <img
+            src="https://img.icons8.com/stickers-duotone/32/add-shopping-cart.png"
+            alt="add-shopping-cart"
+            id="add"
+            class="sticker"
+          />
+        </div>
+      </div>
+      <div id="taskBoard"></div>
+      <div class="week">Week <span>>></span></div>
+      <!-- <button class="save">Save</button> -->
+      <!-- <button class="test">test</button> -->
+    </section>
+    <div id="modalBox">
+      <div>
+        <p>할 일을 지울까요?</p>
+        <button id="ok">확인</button>
+        <button id="close">취소</button>
+      </div>
+    </div>
+
+    <script src="custom_1118.js"></script>
+  </body>
+</html>
