@@ -6,6 +6,7 @@ ul {
   list-style: none;
 }
 
+/* 폰트 */
 @font-face {
   font-family: "YoonChoWooSan";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2")
@@ -25,6 +26,9 @@ body {
   font-family: "YoonChoWooSan";
   overflow: hidden;
   background-color: #bfb9b2;
+}
+input {
+  font-family: "YoonChoWooSan";
 }
 
 @media (min-width: 1220px) {
@@ -50,7 +54,7 @@ body {
     font-weight: bold;
   }
   .weekBoard h3 .todo {
-    font-size: 25px;
+    font-size: 30px;
     cursor: pointer;
     text-shadow: -0.09em 0.1em #ffffff;
   }
@@ -77,18 +81,12 @@ body {
     transition: 0.4s;
   }
   .weekBoard li:hover::before {
-    width: 25px;
-    aspect-ratio: 1/1;
-    content: "";
+    width: 10px;
+    height: 10px;
     position: absolute;
+    right: 15px;
     top: 0px;
-    left: 0px;
-    background: linear-gradient(
-        135deg,
-        rgba(52, 38, 22, 0) 50%,
-        rgb(142, 144, 143) 50%
-      ),
-      url(img/Corkboard.png) no-repeat center / cover;
+    content: "↩";
   }
   .weekBoard li::after {
     width: 90%;
@@ -212,8 +210,8 @@ body {
     position: relative;
   }
   #title .left > div span:hover::before {
-    width: 160px;
-    content: "오늘의 투두로 돌아갑니다";
+    width: 170px;
+    content: "오늘의 리스트로 돌아갑니다";
     background-color: white;
     position: absolute;
     left: -300%;
@@ -237,11 +235,11 @@ body {
     position: relative;
   }
   #title .icons span:nth-child(1):hover::before {
-    width: 210px;
-    content: "모든 할 일에 체크를 해제합니다";
+    width: 160px;
+    content: "모든 할 일을 체크합니다";
     background-color: white;
     position: absolute;
-    left: -350%;
+    left: -280%;
     top: -100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -249,11 +247,11 @@ body {
     text-align: center;
   }
   #title .icons span:nth-child(2):hover::before {
-    width: 160px;
-    content: "모든 할 일을 체크합니다";
+    width: 210px;
+    content: "모든 할 일에 체크를 해제합니다";
     background-color: white;
     position: absolute;
-    left: -280%;
+    left: -350%;
     top: -100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -396,6 +394,7 @@ body {
     cursor: pointer;
     transform: rotate(-15deg);
     font-size: 18px;
+    font-weight: bold;
   }
   .week:hover {
     animation: weekTurn 0.5s infinite alternate;
@@ -502,7 +501,7 @@ body {
     font-weight: bold;
   }
   .weekBoard h3 .todo {
-    font-size: clamp(20px, 2vw, 25px);
+    font-size: clamp(25px, 3.3vw, 30px);
     cursor: pointer;
     text-shadow: -0.09em 0.1em #ffffff;
   }
@@ -530,18 +529,12 @@ body {
     box-sizing: border-box;
   }
   .weekBoard li:hover::before {
-    width: 25px;
-    aspect-ratio: 1/1;
-    content: "";
+    width: 10px;
+    height: 10px;
     position: absolute;
+    right: 15px;
     top: 0px;
-    left: 0px;
-    background: linear-gradient(
-        135deg,
-        rgba(52, 38, 22, 0) 50%,
-        rgb(142, 144, 143) 50%
-      ),
-      url(img/Corkboard.png) no-repeat center / cover;
+    content: "↩";
   }
   .weekBoard li::after {
     width: 90%;
@@ -665,8 +658,8 @@ body {
     position: relative;
   }
   #title .left > div span:hover::before {
-    width: 160px;
-    content: "오늘의 투두로 돌아갑니다";
+    width: 170px;
+    content: "오늘의 리스트로 돌아갑니다";
     background-color: white;
     position: absolute;
     left: -300%;
@@ -690,11 +683,11 @@ body {
     position: relative;
   }
   #title .icons span:nth-child(1):hover::before {
-    width: 210px;
-    content: "모든 할 일에 체크를 해제합니다";
+    width: 160px;
+    content: "모든 할 일을 체크합니다";
     background-color: white;
     position: absolute;
-    left: -350%;
+    left: -280%;
     top: -100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -702,11 +695,11 @@ body {
     text-align: center;
   }
   #title .icons span:nth-child(2):hover::before {
-    width: 160px;
-    content: "모든 할 일을 체크합니다";
+    width: 210px;
+    content: "모든 할 일에 체크를 해제합니다";
     background-color: white;
     position: absolute;
-    left: -280%;
+    left: -350%;
     top: -100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -782,6 +775,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
     padding: 10px 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid black;
@@ -789,6 +783,7 @@ body {
     border-radius: 20px;
     color: black;
     transition: 0.2s;
+    cursor: pointer;
   }
   .task:hover {
     transform: scale(1.03);
@@ -817,6 +812,7 @@ body {
   .task label {
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
   .task input {
     position: absolute;
@@ -849,6 +845,7 @@ body {
     cursor: pointer;
     transform: rotate(-15deg);
     font-size: 18px;
+    font-weight: bold;
   }
   .week:hover {
     animation: weekTurn 0.5s infinite alternate;
@@ -959,7 +956,7 @@ body {
     font-weight: bold;
   }
   .weekBoard h3 .todo {
-    font-size: clamp(20px, 2vw, 25px);
+    font-size: clamp(20px, 4vw, 25px);
     cursor: pointer;
     text-shadow: -0.09em 0.1em #ffffff;
   }
@@ -994,18 +991,12 @@ body {
     box-sizing: border-box;
   }
   .weekBoard li:hover::before {
-    width: 25px;
-    aspect-ratio: 1/1;
-    content: "";
+    width: 10px;
+    height: 10px;
     position: absolute;
+    right: 12px;
     top: 0px;
-    left: 0px;
-    background: linear-gradient(
-        135deg,
-        rgba(52, 38, 22, 0) 50%,
-        rgb(142, 144, 143) 50%
-      ),
-      url(img/Corkboard.png) no-repeat center / cover;
+    content: "↩";
   }
   .weekBoard li::after {
     width: 90%;
@@ -1107,8 +1098,8 @@ body {
     top: -25px;
   }
   #title .left > div span:hover::before {
-    width: 140px;
-    content: "오늘의 투두로 돌아갑니다";
+    width: 145px;
+    content: "오늘의 리스트로 돌아갑니다";
     background-color: white;
     position: absolute;
     left: 0%;
@@ -1131,8 +1122,8 @@ body {
     margin-left: auto;
   }
   #title .icons span:nth-child(1):hover::before {
-    width: 175px;
-    content: "모든 할 일에 체크를 해제합니다";
+    width: 130px;
+    content: "모든 할 일을 체크합니다";
     background-color: white;
     position: absolute;
     right: 0%;
@@ -1144,8 +1135,8 @@ body {
     font-size: 14px;
   }
   #title .icons span:nth-child(2):hover::before {
-    width: 130px;
-    content: "모든 할 일을 체크합니다";
+    width: 175px;
+    content: "모든 할 일에 체크를 해제합니다";
     background-color: white;
     position: absolute;
     right: 0%;
@@ -1208,7 +1199,7 @@ body {
 
   /*todo_taskBoard*/
   #taskBoard {
-    width: 70%;
+    width: 75%;
     height: 75%;
     margin: 0px auto;
     overflow-y: scroll;
@@ -1227,6 +1218,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
     padding: 8px 15px;
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid black;
@@ -1234,6 +1226,7 @@ body {
     border-radius: 15px;
     color: black;
     transition: 0.2s;
+    cursor: pointer;
   }
   .task:hover {
     transform: scale(1.03);
@@ -1263,6 +1256,7 @@ body {
   .task label {
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
   .task input {
     position: absolute;
@@ -1295,6 +1289,7 @@ body {
     cursor: pointer;
     transform: rotate(-15deg);
     font-size: 18px;
+    font-weight: bold;
   }
   .week:hover {
     animation: weekTurn 0.5s infinite alternate;

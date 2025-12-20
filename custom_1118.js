@@ -4,7 +4,7 @@ let taskBoard = document.querySelector("#taskBoard");
 
 let taskList = [];
 
-// 🔅랜덤 이미지들
+// 랜덤 이미지들
 let images = [
   "img/grape.png",
   "img/orange.png",
@@ -12,7 +12,7 @@ let images = [
   "img/tomato.png",
 ];
 
-// 🔅Task 생성
+// Task 생성
 add.addEventListener("click", () => {
   if (!user.value.trim()) return; //!!
   makeTask();
@@ -22,7 +22,7 @@ function makeTask() {
     id: Date.now(),
     content: user.value,
     isComplete: false,
-    img: "", // 체크 이미지 저장
+    img: "",
   };
 
   taskList.push(task);
@@ -39,12 +39,11 @@ function addTask(task) {
 
   let input = document.createElement("input");
   input.type = "checkbox";
-  input.id = task.id; //on_ 제거
+  input.id = task.id;
   input.checked = task.isComplete;
 
   let label = document.createElement("label");
-  // label.className = "taskLabel";
-  label.setAttribute("for", task.id); // setArrtibute?
+  label.setAttribute("for", task.id);
 
   if (task.img) label.style.backgroundImage = `url("${task.img}")`;
 
@@ -56,23 +55,23 @@ function addTask(task) {
   delBtn.textContent = "Delete";
 
   div.append(input, label, text, delBtn);
-  taskBoard.append(div); // 왜 append지?? innerHTML 이런거 써야하는거 아님?
+  taskBoard.append(div);
 
-  // 🔅개별 이벤트 연결
+  // 개별 이벤트 연결
   input.addEventListener("change", () =>
     checking(task.id, input.checked, label, text)
   );
   delBtn.addEventListener("click", () => modalUp(task.id));
 }
 
-// 🔅체크박스 이벤트
+// 체크박스 이벤트
 function checking(id, checked, label, text) {
   let task = taskList.find((t) => t.id === id);
-  task.isComplete = checked; // 지금 체크가 자동으로 true 상태로 되어 있는건가?
+  task.isComplete = checked;
 
   if (checked) {
     let randomImg = images[Math.floor(Math.random() * images.length)];
-    task.img = randomImg; // task.img는 전역변수인지? 이 함수 내에서 task를 새로 만든 것 같은데 아닌가??
+    task.img = randomImg;
     label.style.backgroundImage = `url("${randomImg}")`;
     label.style.border = "none";
     text.classList.add("task-done");
@@ -84,7 +83,7 @@ function checking(id, checked, label, text) {
   }
 }
 
-// 🔅모달창
+// 모달창
 let close = document.querySelector("#close");
 let modal = document.querySelector("#modalBox");
 let ok = document.querySelector("#ok");
@@ -105,10 +104,9 @@ function deleteTask(id) {
 
   let target = document.querySelector(`.task[data-id="${id}"]`);
   if (target) target.remove();
-  // 이걸 넣어야만 삭제가 되는거려나..?
 }
 
-// 🔅모두 해제 & 모두 체크
+// 모두 해제 & 모두 체크
 let allDel = document.querySelector(".allDel");
 let allCheck = document.querySelector(".allCheck");
 
@@ -118,7 +116,6 @@ allCheck.addEventListener("click", () => {
     let label = task.querySelector("label");
     let text = task.querySelector("div:nth-child(3)");
     let id = Number(task.dataset.id);
-    //근데 왜 task.~("label") 이런 식으로 가져오는거지??
 
     checkbox.checked = true;
     checking(id, true, label, text);
@@ -137,7 +134,7 @@ allDel.addEventListener("click", () => {
   });
 });
 
-// 🔅목록 초기화
+// 목록 초기화
 let clear = document.querySelector(".clear");
 clear.addEventListener("click", () => {
   modal.style.display = "flex";
@@ -154,7 +151,7 @@ function AllClear() {
   taskBoard.innerHTML = "";
 }
 
-// 🔅엔터 시 함수 실행
+// 엔터 시 함수 실행
 user.addEventListener("keydown", (e) => {
   if (!user.value.trim()) return;
   if (e.key == "Enter") {
@@ -162,9 +159,7 @@ user.addEventListener("keydown", (e) => {
   }
 });
 
-// 어디를 눌러도 선택되게❗❗❗❗❗❗
-
-// 🔅todo에 오늘 날짜 넣기
+// todo에 오늘 날짜 넣기
 let day = document.querySelector(".day");
 
 let day1 = new Date();
@@ -173,7 +168,7 @@ day.textContent = `${day1.getFullYear()}.${
   day1.getMonth() + 1
 }.${day1.getDate()} (${weekdays[day1.getDay()]})`;
 
-// 🔅cork에 일주일 날짜 넣기
+// cork에 일주일 날짜 넣기
 let today = new Date(); // 오늘
 let eachDay = today.getDay(); // 0(일) ~ 6(토)
 
@@ -210,10 +205,24 @@ weekDate.forEach((date, i) => {
   empty[i].dataset.dayKey = date.getDay();
 });
 
+// 지난주의 투두리스트 기록 삭제
+let savedSunday = localStorage.getItem("weekStart");
+let sunday2 = new Date(sunday);
+sunday2.setHours(0, 0, 0, 0);
+let currentSunday = sunday2.getTime().toString();
+
+if (savedSunday && savedSunday !== currentSunday) {
+  for (let i = 0; i < 7; i++) {
+    localStorage.removeItem("tasks_" + i);
+  }
+}
+localStorage.setItem("weekStart", currentSunday);
+console.log(currentSunday);
+
 // 요일키
 function getDayKey() {
   let dayKey = day1.getDay();
-  return dayKey; // 0~6
+  return dayKey;
 }
 
 // week 버튼
@@ -245,7 +254,7 @@ function weekUp() {
   );
 }
 
-// 🔅todo 내용 저장
+// todo 내용 저장
 let save = document.querySelector(".save");
 let test = document.querySelector(".test");
 
@@ -262,26 +271,14 @@ function todoSaving() {
   localStorage.setItem(key, JSON.stringify(taskList));
 }
 
-// test.addEventListener("click", function () {
-//   // taskList = [];
-//   // taskBoard.innerHTML = "";
-//   // let saved = localStorage.getItem("tasks");
-//   let key = "tasks_" + day1.getDay();
-//   let saved = localStorage.getItem(key);
-
-//   taskList = JSON.parse(saved);
-//   taskList.forEach(addTask);
-//   localStorage.clear();
-// });
-
-// 요일 별로 가져오기
+// 요일 별로 기록 가져오기
 let loadPop = document.querySelector(".loadPop");
 let loadYes = document.querySelector("#loadYes");
 let loadNo = document.querySelector("#loadNo");
 let left = document.querySelector(".left");
 
 let selectLi = null;
-let selectP = null; //?
+let selectP = null;
 let isLoadYes = false;
 
 empty.forEach((li) => {
@@ -299,7 +296,6 @@ empty.forEach((li) => {
 });
 
 loadYes.addEventListener("click", function () {
-  // isLoadYes = true;
   loadPop.style.display = "none";
 
   let key = "tasks_" + selectLi.dataset.dayKey;
@@ -322,24 +318,24 @@ loadYes.addEventListener("click", function () {
   if (!saved) {
     selectLi.classList.remove("selected");
     alert("앗! 그날의 기록이 저장되지 않았나봐요!");
+    return;
   }
 
   AllClear();
   selectReset();
   taskList = JSON.parse(saved);
-  taskList.forEach(addTask); // 여기 왜 오류??
+  taskList.forEach(addTask);
 
   day.classList.add("on");
   let span = document.createElement("span");
   span.textContent = selectP.textContent;
-  day.appendChild(document.createElement("br")); // 줄바꿈
+  day.appendChild(document.createElement("br"));
   left.appendChild(span);
 
   weekUp();
 });
 
 function selectReset() {
-  // $("left span:nth-child(2)") -> 여기서 li에 넣은 클래스 지우기..? 아니다 li foreach에서 지우면 될 것 같기도..?
   let lastSpan = document.querySelector(".left > span");
   let lastBr = document.querySelector(".left br");
   if (lastSpan) lastSpan.remove();
@@ -369,6 +365,6 @@ returnBtn.addEventListener("click", function () {
     taskList = JSON.parse(saved);
     taskList.forEach(addTask);
   } else {
-    alert("저장되어 있는 투두가 없습니다.");
+    alert("저장되어 있는 투두리스트가 없습니다.");
   }
 });
