@@ -14,7 +14,7 @@ let images = [
 
 // Task 생성
 add.addEventListener("click", () => {
-  if (!user.value.trim()) return; //!!
+  if (!user.value.trim()) return;
   makeTask();
 });
 function makeTask() {
@@ -31,9 +31,9 @@ function makeTask() {
   user.value = "";
 }
 
-// 🔅개별 task 생성 함수
+// 개별 task 생성 함수
 function addTask(task) {
-  let div = document.createElement("label"); //❗❗❗❗❗❗❗
+  let div = document.createElement("label");
   div.classList.add("task");
   div.dataset.id = task.id;
 
